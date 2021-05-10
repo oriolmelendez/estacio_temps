@@ -1,0 +1,180 @@
+[
+    {
+        "id": "7c3d273e.21396",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "d7107f8.602468",
+        "type": "exec",
+        "z": "7c3d273e.21396",
+        "command": "python3 /home/pi/Desktop/temperatura_RSP.py",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 640,
+        "y": 520,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b1d8ecdc.48f358",
+        "type": "inject",
+        "z": "7c3d273e.21396",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 300,
+        "y": 500,
+        "wires": [
+            [
+                "d7107f8.602468"
+            ]
+        ]
+    },
+    {
+        "id": "5c1d32be.dda1cc",
+        "type": "mqtt in",
+        "z": "7c3d273e.21396",
+        "name": "",
+        "topic": "/temperatura",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "28a1de69.3c208a",
+        "x": 330,
+        "y": 400,
+        "wires": [
+            [
+                "3f905852.ba1218"
+            ]
+        ]
+    },
+    {
+        "id": "3f905852.ba1218",
+        "type": "debug",
+        "z": "7c3d273e.21396",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "51917fd9.16671",
+        "type": "mqtt in",
+        "z": "7c3d273e.21396",
+        "name": "",
+        "topic": "/pressio",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "28a1de69.3c208a",
+        "x": 310,
+        "y": 340,
+        "wires": [
+            [
+                "1458b4a1.fbd47b"
+            ]
+        ]
+    },
+    {
+        "id": "1458b4a1.fbd47b",
+        "type": "debug",
+        "z": "7c3d273e.21396",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "b8d7fd7c.cdb1",
+        "type": "mqtt in",
+        "z": "7c3d273e.21396",
+        "name": "",
+        "topic": "/altitude",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "28a1de69.3c208a",
+        "x": 310,
+        "y": 280,
+        "wires": [
+            [
+                "d7aea135.e3f5"
+            ]
+        ]
+    },
+    {
+        "id": "d7aea135.e3f5",
+        "type": "debug",
+        "z": "7c3d273e.21396",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "28a1de69.3c208a",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    }
+]
