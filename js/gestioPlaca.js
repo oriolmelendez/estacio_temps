@@ -19,12 +19,12 @@ const client = mqtt.connect(host, options);
 
 var app = new Vue({
     el: '#app',
-    data: function(){
-        return{
-           
+    data: function () {
+        return {
+
         }
     },
-    mounted: function(){
+    mounted: function () {
         _self = this;
 
         const client = mqtt.connect(host, options);
@@ -35,8 +35,9 @@ var app = new Vue({
             client.subscribe('/RSPEscriure');
             client.subscribe('/RSPTots');
         });
+
     },
-    methods:{
+    methods: {
         ledON: function (value) {
             console.log(value);
             client.publish('/RSPled', value + '');
@@ -50,7 +51,7 @@ var app = new Vue({
             console.log(text);
             client.publish('/RSPEscriure', text);
         },
-        encendreLeds: function(){
+        encendreLeds: function () {
             client.publish('/RSPTots', "turnOn");
         }
     }

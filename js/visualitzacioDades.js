@@ -17,11 +17,13 @@ const options = {
 
 var app = new Vue({
     el: '#app',
-    data: function(){
-        return{
+    data: function () {
+        return {
             pressio: '',
             temperatura: '',
-            alcada:''
+            alcada: '',
+            lat: '',
+            lon: ''
         }
     },
     mounted: function () {
@@ -35,6 +37,8 @@ var app = new Vue({
             client.subscribe('/RSP0temperatura');
             client.subscribe('/RSP0pressio');
             client.subscribe('/RSP0altitude');
+            client.subscribe('/RSP0latitude');
+            client.subscribe('/RSP0longitude');
         });
 
         client.on('message', function (topic, message) {
@@ -55,9 +59,65 @@ var app = new Vue({
                     console.log('Alçada: ' + message.toString());
                     _self.alcada = message.toString();
                     break;
+
+                case '/RSP0latitude':
+                    console.log('Latitude: ' + message.toString());
+                    _self.lat = message.toString();
+                    break;
+
+                case '/RSP0longitude':
+                    console.log('Longitude: ' + message.toString());
+                    _self.lon = message.toString();
+                    break;
             }
 
         });
+
+        this.mapa();
+    },
+    methods:{
+        mapa: function(){
+
+            var view = new ol.View({
+                center: [0, 0],
+                zoom: 2
+              });
+              
+              var map = new ol.Map({
+                layers: [
+                  new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                  })
+                ],
+                target: 'map',
+                controls: ol.control.defaults({
+                  attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+                    collapsible: false
+                  })
+                }),
+                view: view
+              });
+              
+              var geolocation = new ol.Geolocation({
+                trackingOptions: {
+                  enableHighAccuracy: true,
+                },
+                projection: view.getProjection(),
+              });
+                
+              var accuracyFeature = new ol.Feature();
+              
+              var positionFeature = new ol.Feature();
+              positionFeature.bindTo('geometry', geolocation, 'position')
+                  .transform(function() {}, function(coordinates) {
+                    return coordinates ? new ol.geom.Point(coordinates) : null;
+                  });
+              
+              var featuresOverlay = new ol.FeatureOverlay({
+                map: map,
+                features: [accuracyFeature, positionFeature]
+              });
+        }
     }
 
 });

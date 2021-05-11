@@ -25,11 +25,17 @@
                 </div>
             </div>
         </nav>
-        <div class="stream">
-            <h1>Dades en temps real:</h1>
-            <p>Pressió: {{pressio}}</p>
-            <p>Temperatura: {{temperatura}}</p>
-            <p>Alçada: {{alcada}}</p>
+        <div class="visDades">
+            <div class="stream">
+                <h1>Dades en temps real:</h1>
+                <p>Pressió: {{pressio}}</p>
+                <div class="divPressio">
+                    
+                </div>
+                <p>Temperatura: {{temperatura}}</p>
+                <p>Alçada: {{alcada}}</p>
+            </div>
+            <div id="mapa" style="width:100%; height:100%"></div>
         </div>
     </div>
     <script src="js/visualitzacioDades.js"></script>

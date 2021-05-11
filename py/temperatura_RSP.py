@@ -1,6 +1,11 @@
 import paho.mqtt.client as MQTT
 import rainbowhat as rh
 import time
+from geopy.geocoders import Nominatim
+
+#Get position
+loc = Nominatim(user_agent="GetLoc")
+location = loc.geocode("Barcelona, Spain").raw
 
 # Get temperature
 temperature = round(rh.weather.temperature(),2)
@@ -18,7 +23,5 @@ client.connect("broker.emqx.io",1883)
 client.publish("/RSP0temperatura",str(temperature),0,False)
 client.publish("/RSP0pressio",str(pressure),0,False)
 client.publish("/RSP0altitude",str(altitude),0,False)
-
-#Receive messages
-client.subscribe("RSPled")
-client.on_message = print(on_message)
+client.publish("/RSP0latitude",location.get('lat'),0,False)
+client.publish("/RSP0longitude",location.get('lon'),0,False)
