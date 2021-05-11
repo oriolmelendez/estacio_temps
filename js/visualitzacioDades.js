@@ -15,7 +15,8 @@ const options = {
     },
 }
 
-let dadesDir = Vue.component('dadesDir',{
+var app = new Vue({
+    el: '#app',
     data: function(){
         return{
             pressio: '',
@@ -23,7 +24,9 @@ let dadesDir = Vue.component('dadesDir',{
             alcada:''
         }
     },
-    beforeMount: function () {
+    mounted: function () {
+
+        _self = this;
 
         const client = mqtt.connect(host, options);
 
@@ -40,30 +43,21 @@ let dadesDir = Vue.component('dadesDir',{
 
                 case '/RSP0pressio':
                     console.log('Pressio: ' + message.toString());
-                    this.pressio = message.toString();
+                    _self.pressio = message.toString();
                     break;
 
                 case '/RSP0temperatura':
                     console.log('Temperatura: ' + message.toString());
-                    this.temperatura = message.toString();
+                    _self.temperatura = message.toString();
                     break;
 
                 case '/RSP0altitude':
                     console.log('Alçada: ' + message.toString());
-                    this.alcada = message.toString();
+                    _self.alcada = message.toString();
                     break;
             }
 
         });
-    },
-    template: `
-    <div class="stream">
-        <h1>Dades en temps real:</h1>
-        <p>Pressió:</p>
-        <p>Temperatura: {{temperatura}}</p>
-        <p>Alçada: {{alcada}}</p>
-    </div>`
+    }
 
 });
-
-export {dadesDir}

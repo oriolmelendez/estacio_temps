@@ -15,22 +15,18 @@ const options = {
     },
 }
 
-let grafiques = Vue.component('grafiques', {
-    data: function () {
-        return {
-            pressio: [{}],
+var app = new Vue({
+    el: '#app',
+    data: function(){
+        return{
+            pressio: [],
             temperatura: [],
-            alcada: [{}],
-        }
-    },
-    methods:{
-        comprovarTemperatures: function(){
-            console.log(this.temperatura);
+            alcada:[]
         }
     },
     mounted: function () {
 
-        var temperatures = [];
+        _self = this;
 
         const client = mqtt.connect(host, options);
 
@@ -47,30 +43,28 @@ let grafiques = Vue.component('grafiques', {
 
                 case '/RSP0pressio':
                     console.log('Pressio: ' + message.toString());
-                    //Vue.set(this.pressio, message.toString());   
+                    _self.pressio.push(message.toString());
                     break;
 
                 case '/RSP0temperatura':
                     console.log('Temperatura: ' + message.toString());
-                    temperatures.push(message.toString());
+                    _self.temperatura.push(message.toString());
                     break;
 
                 case '/RSP0altitude':
-                    console.log('Alçada: ' + message);
-                    //this.alcada.push(message.toString());
+                    console.log('Alçada: ' + message.toString());
+                    _self.alcada.push(message.toString());
                     break;
             }
 
-            this.temperatura = Array.from(temperatures);
-
         });
     },
-    template: `
-    <div class="grafics">
-        <h1>Gràfiques</h1>
-        <button v-on:click="comprovarTemperatures()">Comprova arrays</button>
-    </div>`
+    methods:{
+        comprovarTemperatures: function(){
+            console.log(this.temperatura);
+            console.log(this.pressio);
+            console.log(this.alcada);
+        }
+    }
 
 });
-
-export { grafiques }

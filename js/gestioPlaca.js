@@ -17,9 +17,26 @@ const options = {
 
 const client = mqtt.connect(host, options);
 
-let gestio = Vue.component('Gestio', {
+var app = new Vue({
+    el: '#app',
+    data: function(){
+        return{
+           
+        }
+    },
+    mounted: function(){
+        _self = this;
 
-    methods: {
+        const client = mqtt.connect(host, options);
+
+        client.on('connect', function () {
+            console.log('Connected to broker');
+            client.subscribe('/RSPled');
+            client.subscribe('/RSPEscriure');
+            client.subscribe('/RSPTots');
+        });
+    },
+    methods:{
         ledON: function (value) {
             console.log(value);
             client.publish('/RSPled', value + '');
@@ -32,29 +49,10 @@ let gestio = Vue.component('Gestio', {
             }
             console.log(text);
             client.publish('/RSPEscriure', text);
+        },
+        encendreLeds: function(){
+            client.publish('/RSPTots', "turnOn");
         }
-    },
-    template: `
-    <div class="gestio"> 
-        <h1 class="titol">Gestió placa</h1>
-        <img class="placaimg" src="./img/rainbowhat.jpg" usemap="#placa">
-        <map name="placa">
-            <area shape="rect" coords="50,195,590,941" @click="text()">
-        </map>
-        <div class="ledsSelector">
-            <label>Selecciona el LED:   </label>
-            <select id="leds">
-                <option value="0">Led 0</option>
-                <option value="1">Led 1</option>
-                <option value="2">Led 2</option>
-                <option value="3">Led 3</option>
-                <option value="4">Led 4</option>
-                <option value="5">Led 5</option>
-                <option value="6">Led 6</option>
-            </select>
-        </div>
-    </div>`
+    }
 
 });
-
-export { gestio }

@@ -1,5 +1,5 @@
 
-.stream{
+.stream, .grafics{
     margin-left: 1%;
     margin-top: 1%;
 }
@@ -11,7 +11,7 @@
 
 .placaimg{
     width: 30%;
-    margin-left: 35%;
+    margin-left: 9%;
     margin-top: 4%;
     display: flex;
 }
@@ -34,4 +34,14 @@
 .titolInicial{
     margin-left: 36%;
     margin-top: 3%;
+}
+
+.content{
+    display: flex;
+}
+
+.leds{
+    height: 3%;
+    margin-top: 15%;
+    margin-left: 18%;
 }
