@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
     <title>Visualització de dades</title>
 </head>
 
@@ -19,25 +22,37 @@
                     <div class="navbar-nav">
                         <a class="nav-link active" aria-current="page" href="index.html">Inici</a>
                         <a class="nav-link active" aria-current="page" href="grafiques.html">Gràfiques</a>
-                        <a class="nav-link active" href="gestioPlaca.html" >Gestió de la placa</a>
+                        <a class="nav-link active" href="gestioPlaca.html">Gestió de la placa</a>
                         <a class="nav-link active" href="visualitzacioDades.html">Visualització de dades</a>
                     </div>
                 </div>
             </div>
         </nav>
-        <div class="visDades">
-            <div class="stream">
-                <h1>Dades en temps real:</h1>
-                <p>Pressió: {{pressio}}</p>
-                <div class="divPressio">
-                    
-                </div>
-                <p>Temperatura: {{temperatura}}</p>
-                <p>Alçada: {{alcada}}</p>
+        <div class="containerDades">
+            <h1>Estació de meteorologia:</h1>
+            <div class="subtitol">
+                <p>Dades rebudes: </p>
+                <p>Ubicació de l'estació: </p>
             </div>
-            <div id="mapa" style="width:100%; height:100%"></div>
+            <div class="visDades">
+                <div class="dadesRebudes">
+                    <p class="temperatura"> {{temperatura}} ºC</p>
+                    <div class="visDades dades2">
+                        <div>
+                            <p class="pressio"><strong>PRESSIÓ:</strong></p>
+                            <p>{{pressio}} P</p>
+                        </div>
+                        <div>
+                            <p class="alcada"><strong>ALÇADA:</strong></p>
+                            <p>{{alcada}} m</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="map" style="height: 300px; width: 600px;">carregant...</div>
+            </div>
         </div>
     </div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="js/visualitzacioDades.js"></script>
 </body>
 

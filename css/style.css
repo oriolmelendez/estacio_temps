@@ -1,5 +1,5 @@
 
-.stream, .grafics{
+.stream, .grafics, .containerDades{
     margin-left: 1%;
     margin-top: 1%;
 }
@@ -44,4 +44,42 @@
     height: 3%;
     margin-top: 15%;
     margin-left: 18%;
+}
+
+.visDades{
+    display: flex;
+}
+
+.dadesRebudes{
+    background-color: rgb(238, 238, 238);
+    width: 30%;
+    height: auto;
+}
+
+.temperatura{
+    color: orange;
+    font-size: 110px;
+    margin-left: 3%;
+}
+
+.subtitol{
+    margin-top: 2%;
+    display: flex;
+}
+
+.subtitol > :last-child{
+    margin-left: 28%;
+}
+
+.visDades.dades2{
+    font-size: 20px;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+.visDades.dades2 > :last-child{
+    margin-left: 15%;
+}
+
+#map{
+    margin-left: 5%;
 }
