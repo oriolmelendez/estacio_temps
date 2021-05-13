@@ -38,7 +38,8 @@ var app = new Vue({
 
     },
     methods: {
-        ledON: function (value) {
+        ledON: function () {
+            value = document.getElementById('leds').value;
             console.log(value);
             client.publish('/RSPled', value + '');
         },
@@ -53,6 +54,12 @@ var app = new Vue({
         },
         encendreLeds: function () {
             client.publish('/RSPTots', "turnOn");
+        },
+        emetreSo: function(){
+            let freq = document.getElementById('freq').value;
+            let duracio = document.getElementById('duracio').value;
+            let data = '{"freq":'+ freq +',"duracio": '+ duracio +'}';
+            client.publish('/RSPESo', data);
         }
     }
 

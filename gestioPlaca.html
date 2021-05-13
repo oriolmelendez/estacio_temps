@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ca">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +8,12 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <title>Gestio placa</title>
+    <title>Gestio rainbowhat</title>
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -25,18 +28,41 @@
                 </div>
             </div>
         </nav>
-        <div class="gestio"> 
-            <h1 class="titol">Gestió placa</h1>
+        <div class="gestio">
+            <h1 class="titol">Gestió rainbowhat</h1>
             <div class="content">
                 <button class="leds" v-on:click="encendreLeds()">Encendre LEDS</button>
                 <img class="placaimg" src="./img/rainbowhat.jpg" usemap="#placa">
                 <map name="placa">
                     <area shape="rect" coords="50,195,590,941" v-on:click="text()">
                 </map>
+                <div class="buzzer">
+                    <label>Freqüència</label>
+                    <select id="freq">
+                        <option value="16.35">16.35</option>
+                        <option value="23.12">23.12</option>
+                        <option value="30.87">30.87</option>
+                        <option value="51.91">51.91</option>
+                        <option value="103.83">103.83</option>
+                        <option value="185.00">185.00</option>
+                        <option value="830.61">830.61</option>
+                        <option value="3520.00">3520.00</option>
+                        <option value="7458.62">7458.62</option>
+                    </select>
+                    <label>Duració</label>
+                    <select id="duracio">
+                        <option value="1">1s</option>
+                        <option value="1.5">1.5s</option>
+                        <option value="2">2</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3">3</option>
+                    </select>
+                    <button v-on:click="emetreSo()">Emetre so</button>
+                </div>
             </div>
             <div class="ledsSelector">
-                <label>Selecciona el LED:   </label>
-                <select id="leds">
+                <label>Selecciona el LED: </label>
+                <select id="leds" v-on:change="ledON()">
                     <option value="0">Led 0</option>
                     <option value="1">Led 1</option>
                     <option value="2">Led 2</option>
@@ -50,4 +76,5 @@
     </div>
     <script src="js/gestioPlaca.js"></script>
 </body>
+
 </html>

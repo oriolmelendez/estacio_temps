@@ -1,6 +1,6 @@
 [
     {
-        "id": "b1d8ecdc.48f358",
+        "id": "f2fffc8c.af128",
         "type": "inject",
         "z": "7c3d273e.21396",
         "name": "",
@@ -9,18 +9,18 @@
                 "p": "payload"
             }
         ],
-        "repeat": "5",
+        "repeat": "",
         "crontab": "",
-        "once": false,
+        "once": true,
         "onceDelay": "5",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 270,
-        "y": 380,
+        "x": 250,
+        "y": 340,
         "wires": [
             [
-                "d7107f8.602468"
+                "21bed16d.4c65de"
             ]
         ]
     }

@@ -23,7 +23,8 @@ var app = new Vue({
       temperatura: 'carregant...',
       alcada: 'carregant...',
       lat: '',
-      lon: ''
+      lon: '',
+      mapaIniciat: true
     }
   },
   mounted: function () {
@@ -71,17 +72,31 @@ var app = new Vue({
           break;
       }
 
+      if(_self.lat && _self.log && _self.mapaIniciat){
+
+        let ubicacio = {latitud: _self.lat, logitud: _self.log}
+        _self.mapaIniciat = false;
+        client.unsubscribe('/RSP0latitude');
+        client.unsubscribe('/RSP0longitude');
+        _self.mapa(ubicacio);
+      }
+
     });
 
-    var map = L.map('map').setView([41.3828939, 2.1774322], 13);
+  },
+  methods: {
+    mapa: function (ubi) {
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+      map = L.map('map').setView([ubi.latitud, ubi.logitud], 13);
 
-    L.marker([41.3828939,2.1774322]).addTo(map)
-      .bindPopup('Estació meteorologica')
-      .openPopup();
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      L.marker([ubi.latitud, ubi.logitud]).addTo(map)
+        .bindPopup('Estació meteorologica')
+        .openPopup();
+    }
   }
 
 });

@@ -17,7 +17,7 @@
 }
 
 .titol{
-    margin-left: 43%;
+    margin-left: 39%;
     margin-top: 2%;
 }
 
@@ -58,8 +58,14 @@
 
 .temperatura{
     color: orange;
-    font-size: 110px;
+    font-size: 90px;
     margin-left: 3%;
+    display: flex;
+}
+.wi.wi-thermometer{
+    margin-top: 7%;
+    margin-right: 7%;
+   size: 70px;
 }
 
 .subtitol{
@@ -82,4 +88,20 @@
 
 #map{
     margin-left: 5%;
+}
+
+.buzzer{
+    display:grid;
+    height: 200%;
+    width: 20%;
+    margin-left: 8%;
+    margin-right: 5%;
+}
+
+.buzzer > select{
+    margin-bottom: 10%;
+}
+
+.buzzer > :first-child{
+    margin-top: 45%;
 }
