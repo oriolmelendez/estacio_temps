@@ -11,19 +11,19 @@
 
 .placaimg{
     width: 30%;
-    margin-left: 9%;
+    margin-left: 5%;
     margin-top: 4%;
     display: flex;
 }
 
 .titol{
-    margin-left: 39%;
+    margin-left: 36%;
     margin-top: 2%;
 }
 
 .ledsSelector{
     display: flex;
-    margin-left: 43%;
+    margin-left: 40%;
     margin-top: 3%;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .titolInicial{
-    margin-left: 36%;
+    margin-left: 33%;
     margin-top: 3%;
 }
 
@@ -41,9 +41,21 @@
 }
 
 .leds{
-    height: 3%;
+    margin-top: 35%;
+}
+
+.leftSite{
+    margin-left: 2%;
+}
+
+.missatge{
     margin-top: 15%;
-    margin-left: 18%;
+    font-size: 22px;
+}
+
+.missatge > i{
+    font-size: 65px;
+    padding-top: 3%;
 }
 
 .visDades{
@@ -57,11 +69,11 @@
 }
 
 .temperatura{
-    color: orange;
     font-size: 90px;
     margin-left: 3%;
     display: flex;
 }
+
 .wi.wi-thermometer{
     margin-top: 7%;
     margin-right: 7%;
@@ -104,4 +116,46 @@
 
 .buzzer > :first-child{
     margin-top: 45%;
+}
+
+.wi.wi-day-sunny{
+    font-size: 250px;
+    margin-left: 20%;
+    margin-top: 7%;
+}
+
+.situacioClimatica {
+    display: flex;
+}
+
+.situacioClimatica > p{
+    margin-left: 8%;
+    font-size: 180px;
+    padding-top: 4%;
+}
+
+#led {
+    animation-name: colors;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    font-size: 30px;
+}
+
+
+@keyframes colors {
+    0% {
+        color: red;
+    }
+    25% {
+        color: cornflowerblue;
+    }
+    50% {
+        color: green;
+    }
+    75% {
+        color: blue;
+    }
+    100% {
+        color: purple;
+    }
 }

@@ -12,7 +12,7 @@ const options = {
     payload: 'Connection Closed abnormally..!',
     qos: 0,
     retain: false
-  },
+  }
 }
 
 var app = new Vue({
