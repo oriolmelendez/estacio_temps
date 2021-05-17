@@ -134,6 +134,11 @@
     padding-top: 4%;
 }
 
+#grafiques{
+    margin-left: 3%;
+    margin-right: 2%;
+}
+
 #led {
     animation-name: colors;
     animation-duration: 4s;

@@ -19,43 +19,76 @@ var app = new Vue({
     el: '#app',
     data: function () {
         return {
-            pressio: [],
-            temperatura: [],
-            alcada: []
+            dataTemp: '',
+            tempValue: [],
+            timeValue: [],
+            dataPressio: '',
+            pressioValue: [],
+            timePValue: [],
+            dataAlcada: '',
+            alcadaValue: [],
+            timeAValue: []
         }
     },
     mounted: function () {
         _self = this;
 
-            const client = mqtt.connect(host, options);
+        const client = mqtt.connect(host, options);
 
-            client.on('connect', function () {
-                console.log('Connected to broker');
-                client.subscribe('/RSP0temperatura');
-                client.subscribe('/RSP0pressio');
-                client.subscribe('/RSP0altitude');
-            });
+        client.publish('/RSPGetInflux', 'Dadestemp');
 
-            client.on('message', function (topic, message) {
+        client.on('connect', function () {
+            console.log('Connected to broker');
+            client.subscribe('/RSPInfluxTemp');
+            client.subscribe('/RSPInfluxPressio');
+            client.subscribe('/RSPInfluxAlcada');
+        });
 
-                switch (topic) {
+        client.on('message', function (topic, message) {
 
-                    case '/RSP0pressio':
-                        console.log('Pressio: ' + message.toString());
-                        _self.pressio.push({ y: message.toString() });
-                        break;
+            switch (topic) {
 
-                    case '/RSP0temperatura':
-                        console.log('Temperatura: ' + message.toString());
-                        _self.temperatura.push({ y: message.toString() });
-                        break;
+                case '/RSPInfluxTemp':
+                    _self.dataTemp = JSON.parse(message);
+                    console.log(_self.dataTemp);
+                    _self.dataTemp.forEach(element => {
+                        _self.tempValue.push(element.value);
+                        let time = element.time;
+                        let splited = time.split('T');
+                        splited[1] = splited[1].slice(0, 8)
+                        _self.timeValue.push(splited.join(' '));
+                    });
+                    break;
 
-                    case '/RSP0altitude':
-                        console.log('Alçada: ' + message.toString());
-                        _self.alcada.push({ y: message.toString() });
-                        break;
-                }
-            });
+                case '/RSPInfluxPressio':
+                    _self.dataPressio = JSON.parse(message);
+                    console.log(_self.dataPressio);
+                    _self.dataPressio.forEach(element => {
+                        _self.pressioValue.push(element.value);
+                        let time = element.time;
+                        let splited = time.split('T');
+                        splited[1] = splited[1].slice(0, 8)
+                        _self.timePValue.push(splited.join(' '));
+                    });
+                    break;
+
+                case '/RSPInfluxAlcada':
+                    _self.dataAlcada = JSON.parse(message);
+                    console.log(_self.dataAlcada);
+                    _self.dataAlcada.forEach(element => {
+                        _self.alcadaValue.push(element.value);
+                        let time = element.time;
+                        let splited = time.split('T');
+                        splited[1] = splited[1].slice(0, 8)
+                        _self.timeAValue.push(splited.join(' '));
+                    });
+                    break;
+            }
+        });
+
+        if (_self.dataTemp.lenght !== 0) {
+            _self.grafic();
+        }
     },
     methods: {
         comprovarTemperatures: function () {
@@ -64,48 +97,57 @@ var app = new Vue({
             console.log(this.alcada);
         },
         grafic: function () {
-            var chart = new CanvasJS.Chart("chartContainer", {
-                animationEnabled: true,
 
-                title: {
-                    text: "Fortune 500 Companies by Country"
-                },
-                axisX: {
-                    interval: 1
-                },
-                axisY2: {
-                    interlacedColor: "rgba(1,77,101,.2)",
-                    gridColor: "rgba(1,77,101,.1)",
-                    title: "Number of Companies"
-                },
-                data: [{
-                    type: "bar",
-                    name: "companies",
-                    axisYType: "secondary",
-                    color: "#014D65",
-                    dataPoints: [
-                        { y: 3, label: "Sweden" },
-                        { y: 7, label: "Taiwan" },
-                        { y: 5, label: "Russia" },
-                        { y: 9, label: "Spain" },
-                        { y: 7, label: "Brazil" },
-                        { y: 7, label: "India" },
-                        { y: 9, label: "Italy" },
-                        { y: 8, label: "Australia" },
-                        { y: 11, label: "Canada" },
-                        { y: 15, label: "South Korea" },
-                        { y: 12, label: "Netherlands" },
-                        { y: 15, label: "Switzerland" },
-                        { y: 25, label: "Britain" },
-                        { y: 28, label: "Germany" },
-                        { y: 29, label: "France" },
-                        { y: 52, label: "Japan" },
-                        { y: 103, label: "China" },
-                        { y: 134, label: "US" }
-                    ]
-                }]
+            _self = this;
+
+            var ctx = document.getElementById('grafiques').getContext('2d');
+
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: _self.timeValue,
+                    datasets: [{
+                        label: 'Temperatura',
+                        data: _self.tempValue,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Pressio',
+                        data: _self.pressioValue,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Alçada',
+                        data: _self.alcadaValue,
+                        backgroundColor: [
+                            'rgba(38, 166, 91, 1)',
+                           
+                        ],
+                        borderColor: [
+                            'rgba(38, 166, 91, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                }
             });
-            chart.render();
+
         }
 
     }

@@ -19,8 +19,6 @@ let app = new Vue({
     el: '#app',
     data: {
         temperatura: 'carregant...',
-        arrayTemp: [],
-        arrayPress:[]
     },
     mounted: function () {
 
