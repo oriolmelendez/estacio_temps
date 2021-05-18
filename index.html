@@ -31,8 +31,14 @@
         <div>
             <h1 class="titolInicial" transition="fade">Situació climàtica actual</h1>
             <div class="situacioClimatica">
-                <i class="wi wi-day-sunny"></i>
-                <p>{{temperatura}} <i class="wi wi-celsius"></i></p>
+                <div class="svg-loader indexLoader" v-if="loading">
+                    <svg class="svg-container" height="100" width="100" viewBox="0 0 100 100">
+                        <circle class="loader-svg bg" cx="50" cy="50" r="45"></circle>
+                        <circle class="loader-svg animate" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                </div>
+                <i v-if="!loading" class="wi wi-day-sunny"></i>
+                <p v-if="!loading">{{temperatura}} <i class="wi wi-celsius"></i></p>
             </div>
         </div>
     </div>

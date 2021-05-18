@@ -18,36 +18,30 @@ const options = {
 let app = new Vue({
     el: '#app',
     data: {
-        temperatura: 'carregant...',
+        temperatura: '',
+        loading: true,
     },
-    mounted: function () {
+    mounted: function() {
 
         _self = this;
 
         const client = mqtt.connect(host, options);
 
-        client.on('connect', function () {
+        client.on('connect', function() {
             console.log('Connected to broker');
             client.subscribe('/RSP0temperatura');
-            client.subscribe('/RSP0pressio');
         });
 
-        client.on('message', function (topic, message) {
+        client.on('message', function(topic, message) {
 
             switch (topic) {
 
                 case '/RSP0temperatura':
                     console.log('Temperatura: ' + message.toString());
                     _self.temperatura = message.toString();
-                    _self.arrayTemp.push(message.toString());
-                    console.log(_self.arrayTemp);
+                    _self.loading = false;
                     break;
 
-                case '/RSP0pressio':
-                    console.log('Pressio: ' + message.toString());
-                    _self.arrayPress.push(message.toString());
-                    console.log(_self.arrayPress);
-                    break;
             }
         });
 

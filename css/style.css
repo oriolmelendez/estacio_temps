@@ -1,124 +1,126 @@
-
-.stream, .grafics, .containerDades{
+.stream,
+.grafics,
+.containerDades {
     margin-left: 1%;
     margin-top: 1%;
 }
 
-.gestio{
+.gestio {
     margin-left: 1%;
     margin-top: 1%;
 }
 
-.placaimg{
+.placaimg {
     width: 30%;
     margin-left: 5%;
     margin-top: 4%;
     display: flex;
 }
 
-.titol{
+.titol {
     margin-left: 36%;
     margin-top: 2%;
 }
 
-.ledsSelector{
+.ledsSelector {
     display: flex;
     margin-left: 40%;
     margin-top: 3%;
 }
 
-.ledsSelector select{
+.ledsSelector select {
     margin-left: 2%;
 }
 
-.titolInicial{
+.titolInicial {
     margin-left: 33%;
     margin-top: 3%;
 }
 
-.content{
+.content {
     display: flex;
 }
 
-.leds{
+.leds {
     margin-top: 35%;
 }
 
-.leftSite{
+.leftSite {
     margin-left: 2%;
 }
 
-.missatge{
+.missatge {
     margin-top: 15%;
     font-size: 22px;
 }
 
-.missatge > i{
+.missatge>i {
     font-size: 65px;
     padding-top: 3%;
 }
 
-.visDades{
+.visDades {
     display: flex;
 }
 
-.dadesRebudes{
+.dadesRebudes {
     background-color: rgb(238, 238, 238);
     width: 30%;
     height: auto;
 }
 
-.temperatura{
+.temperatura {
     font-size: 90px;
     margin-left: 3%;
     display: flex;
 }
 
-.wi.wi-thermometer{
+.wi.wi-thermometer {
     margin-top: 7%;
     margin-right: 7%;
-   size: 70px;
+    size: 70px;
 }
 
-.subtitol{
+.subtitol {
     margin-top: 2%;
     display: flex;
 }
 
-.subtitol > :last-child{
+.subtitol> :last-child {
     margin-left: 28%;
 }
 
-.visDades.dades2{
+.visDades.dades2 {
     font-size: 20px;
     margin-left: 3%;
     margin-top: 2%;
 }
-.visDades.dades2 > :last-child{
+
+.visDades.dades2> :last-child {
     margin-left: 15%;
 }
 
-#map{
+#map {
     margin-left: 5%;
 }
 
-.buzzer{
-    display:grid;
+.buzzer {
+    display: grid;
     height: 200%;
     width: 20%;
     margin-left: 8%;
     margin-right: 5%;
 }
 
-.buzzer > select{
+.buzzer>select {
     margin-bottom: 10%;
 }
 
-.buzzer > :first-child{
+.buzzer> :first-child {
     margin-top: 45%;
 }
 
-.wi.wi-day-sunny{
+.wi.wi-day-sunny {
     font-size: 250px;
     margin-left: 20%;
     margin-top: 7%;
@@ -128,15 +130,17 @@
     display: flex;
 }
 
-.situacioClimatica > p{
+.situacioClimatica>p {
     margin-left: 8%;
     font-size: 180px;
     padding-top: 4%;
 }
 
-#grafiques{
+#graficaTemp,
+#graficaPressio {
     margin-left: 3%;
     margin-right: 2%;
+    width: 90%;
 }
 
 #led {
@@ -146,6 +150,59 @@
     font-size: 30px;
 }
 
+.svg-loader {
+    display: flex;
+    position: relative;
+    align-content: space-around;
+    justify-content: center;
+}
+
+.svg-loader.indexLoader {
+    margin-left: 44%;
+    margin-top: 10%;
+}
+
+.svg-loader.graficsLoader {
+    margin-top: 10%;
+}
+
+.loader-svg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    fill: none;
+    stroke-width: 5px;
+    stroke-linecap: round;
+    /* stroke: rgb(64, 0, 148); */
+    stroke: rgb(33, 37, 41);
+}
+
+.loader-svg.bg {
+    stroke-width: 8px;
+    stroke: rgb(207, 205, 245);
+}
+
+.animate {
+    stroke-dasharray: 242.6;
+    animation: fill-animation 1s cubic-bezier(1, 1, 1, 1) 0s infinite;
+}
+
+@keyframes fill-animation {
+    0% {
+        stroke-dasharray: 40 242.6;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 141.3;
+        stroke-dashoffset: 141.3;
+    }
+    100% {
+        stroke-dasharray: 40 242.6;
+        stroke-dashoffset: 282.6;
+    }
+}
 
 @keyframes colors {
     0% {

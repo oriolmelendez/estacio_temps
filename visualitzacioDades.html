@@ -30,13 +30,19 @@
         </nav>
         <div class="containerDades">
             <h1>Estació de meteorologia:</h1>
-            <div class="subtitol">
+            <div class="svg-loader" v-if="loading">
+                <svg class="svg-container" height="100" width="100" viewBox="0 0 100 100">
+                    <circle class="loader-svg bg" cx="50" cy="50" r="45"></circle>
+                    <circle class="loader-svg animate" cx="50" cy="50" r="45"></circle>
+                </svg>
+            </div>
+            <div class="subtitol" v-if="!loading">
                 <p>Dades actuals: </p>
                 <p>Ubicació de l'estació: </p>
             </div>
             <div class="visDades">
-                <div class="dadesRebudes">
-                    
+                <div class="dadesRebudes" v-if="!loading">
+
                     <p class="temperatura"> <i class="wi wi-thermometer"></i> {{temperatura}} ºC</p>
                     <div class="visDades dades2">
                         <div>
@@ -49,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="map" style="height: 300px; width: 600px;">carregant...</div>
+                <div id="map" style="height: 300px; width: 600px;"></div>
             </div>
         </div>
     </div>

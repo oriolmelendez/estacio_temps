@@ -17,8 +17,9 @@ const options = {
 
 var app = new Vue({
     el: '#app',
-    data: function () {
+    data: function() {
         return {
+            loading: true,
             dataTemp: '',
             tempValue: [],
             timeValue: [],
@@ -30,21 +31,21 @@ var app = new Vue({
             timeAValue: []
         }
     },
-    mounted: function () {
+    mounted: function() {
         _self = this;
 
         const client = mqtt.connect(host, options);
 
         client.publish('/RSPGetInflux', 'Dadestemp');
 
-        client.on('connect', function () {
+        client.on('connect', function() {
             console.log('Connected to broker');
             client.subscribe('/RSPInfluxTemp');
             client.subscribe('/RSPInfluxPressio');
             client.subscribe('/RSPInfluxAlcada');
         });
 
-        client.on('message', function (topic, message) {
+        client.on('message', function(topic, message) {
 
             switch (topic) {
 
@@ -84,70 +85,77 @@ var app = new Vue({
                     });
                     break;
             }
+
+            if (_self.dataTemp.length == 10 && _self.dataAlcada.length == 10 && _self.dataPressio.length == 10) {
+                _self.loading = false;
+                _self.grafic();
+            }
         });
 
-        if (_self.dataTemp.lenght !== 0) {
-            _self.grafic();
-        }
     },
     methods: {
-        comprovarTemperatures: function () {
+        comprovarTemperatures: function() {
             console.log(this.temperatura);
             console.log(this.pressio);
             console.log(this.alcada);
         },
-        grafic: function () {
+        grafic: function() {
+
+            console.log('grafiques');
 
             _self = this;
 
-            var ctx = document.getElementById('grafiques').getContext('2d');
+            var ctx = document.getElementById('graficaTemp').getContext('2d');
 
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: _self.timeValue,
                     datasets: [{
-                        label: 'Temperatura',
-                        data: _self.tempValue,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)'
-                        ],
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Pressio',
-                        data: _self.pressioValue,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(54, 162, 235, 1)'
-                        ],
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Alçada',
-                        data: _self.alcadaValue,
-                        backgroundColor: [
-                            'rgba(38, 166, 91, 1)',
-                           
-                        ],
-                        borderColor: [
-                            'rgba(38, 166, 91, 1)',
-                        ],
-                        borderWidth: 1
-                    }]
+                            label: 'Temperatura',
+                            data: _self.tempValue,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Pressio',
+                            data: _self.pressioValue,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Alçada',
+                            data: _self.alcadaValue,
+                            backgroundColor: [
+                                'rgba(38, 166, 91, 1)',
+
+                            ],
+                            borderColor: [
+                                'rgba(38, 166, 91, 1)',
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
                 }
             });
 
+            myChart.hide(1);
+            myChart.hide(2);
         }
 
     }
