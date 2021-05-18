@@ -28,11 +28,15 @@ var app = new Vue({
             timePValue: [],
             dataAlcada: '',
             alcadaValue: [],
-            timeAValue: []
+            timeAValue: [],
+            tipusG: 'line',
+            canvasStatus: ''
         }
     },
     mounted: function() {
         _self = this;
+
+        _self.canvasStatus = 'UwU'
 
         const client = mqtt.connect(host, options);
 
@@ -88,7 +92,7 @@ var app = new Vue({
 
             if (_self.dataTemp.length == 10 && _self.dataAlcada.length == 10 && _self.dataPressio.length == 10) {
                 _self.loading = false;
-                _self.grafic();
+                _self.tipusGrafic();
             }
         });
 
@@ -99,16 +103,30 @@ var app = new Vue({
             console.log(this.pressio);
             console.log(this.alcada);
         },
-        grafic: function() {
+        tipusGrafic: function() {
+            let tgrafic = document.getElementById('tipusG').value;
 
-            console.log('grafiques');
+            this.grafic(tgrafic);
+
+        },
+        grafic: function(tipusGfc) {
 
             _self = this;
 
+            var myChart;
+
             var ctx = document.getElementById('graficaTemp').getContext('2d');
 
-            var myChart = new Chart(ctx, {
-                type: 'line',
+            if (tipusGfc !== _self.tipusG) {
+                console.log('diferents');
+                _self.tipusG = tipusGfc;
+
+                myChart.destroy();
+
+            }
+
+            myChart = new Chart(ctx, {
+                type: tipusGfc,
                 data: {
                     labels: _self.timeValue,
                     datasets: [{

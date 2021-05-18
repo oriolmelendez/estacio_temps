@@ -28,6 +28,11 @@
         </nav>
         <div class="grafics">
             <h1>Gràfiques</h1>
+            <label>Tipus de gràfica</label>
+            <select id="tipusG" @change="tipusGrafic">
+                <option value="line">Linial</option>
+                <option value="bar">Barres</option>
+            </select>
         </div>
         <div class="svg-loader graficsLoader" v-if="loading">
             <svg class="svg-container" height="100" width="100" viewBox="0 0 100 100">
@@ -37,7 +42,6 @@
         </div>
     </div>
     <canvas id="graficaTemp" height="500px" role="img"></canvas>
-    <canvas id="graficaPressio" role="img"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="js/grafiques.js"></script>
