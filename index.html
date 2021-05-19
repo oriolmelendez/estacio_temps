@@ -38,7 +38,9 @@
                     </svg>
                 </div>
                 <i v-if="!loading && sol" class="wi wi-day-sunny"></i>
-                <i v-if="!loading && nuvol" class="wi wi-day-cloudy"></i>
+                <i v-if="!loading && nuvol" class="wi wi-cloudy"></i>
+                <i v-if="!loading && inestavilitat" class="wi wi-day-cloudy"></i>
+                <i v-if="!loading && milloraTemps" class="wi wi-day-sunny-overcast"></i>
                 <p v-if="!loading">{{temperatura}} <i class="wi wi-celsius"></i></p>
             </div>
         </div>

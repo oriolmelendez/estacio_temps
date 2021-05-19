@@ -132,6 +132,18 @@
     margin-top: 7%;
 }
 
+.wi.wi-cloudy {
+    font-size: 250px;
+    margin-left: 20%;
+    margin-top: 7%;
+}
+
+.wi.wi-day-sunny-overcast {
+    font-size: 250px;
+    margin-left: 20%;
+    margin-top: 7%;
+}
+
 .situacioClimatica {
     display: flex;
 }
