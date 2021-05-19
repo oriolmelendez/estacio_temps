@@ -112,7 +112,6 @@ let app = new Vue({
         comprovarMeteo: function() {
 
             console.log('Calculant meteorologia');
-            _self.loading = false;
 
             for (let i = 0; i < _self.influxTemp.length; i++) {
 
@@ -142,15 +141,19 @@ let app = new Vue({
 
                 if (_self.tempPuja >= _self.influxTemp.length / 2 && _self.pressIgual >= _self.influxPress.length / 2) {
                     console.log('nublat UwU');
+                    _self.loading = false;
                     _self.nuvol = true;
                 } else if (_self.influxPress[_self.influxPress.length - 1] >= 1013 && _self.tempPuja >= _self.influxTemp.length / 2) {
                     console.log('sol UwU');
+                    _self.loading = false;
                     _self.sol = true;
                 } else if (_self.pressBaixa >= _self.influxPress.length / 2) {
                     console.log('inestabilitat properament');
+                    _self.loading = false;
                     _self.inestavilitat = true;
                 } else if (_self.pressPuja >= _self.influxPress.length / 2) {
                     console.log('el temps millorarà');
+                    _self.loading = false;
                     _self.milloraTemps = true;
                 }
 
