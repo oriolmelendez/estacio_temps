@@ -37,7 +37,8 @@
                         <circle class="loader-svg animate" cx="50" cy="50" r="45"></circle>
                     </svg>
                 </div>
-                <i v-if="!loading" class="wi wi-day-sunny"></i>
+                <i v-if="!loading && sol" class="wi wi-day-sunny"></i>
+                <i v-if="!loading && nuvol" class="wi wi-day-cloudy"></i>
                 <p v-if="!loading">{{temperatura}} <i class="wi wi-celsius"></i></p>
             </div>
         </div>

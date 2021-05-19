@@ -26,6 +26,10 @@ let app = new Vue({
         timeInfluxPress: [],
         influxAlcada: [],
         timeUnfluxAlcada: [],
+        nuvol: false,
+        sol: false,
+        tempPuja: 0,
+        pressIgual: 0
 
     },
     mounted: function() {
@@ -106,12 +110,41 @@ let app = new Vue({
             console.log('calcul meteo');
             _self.loading = false;
 
-            console.log('Last temp: ' + _self.influxTemp);
-            //console.log('Last temp: ' + _self.influxTemp[_self.influxTemp - 1]);
+            console.log('Last temp: ' + _self.influxTemp[_self.influxTemp.length - 1]);
+            console.log('Last pressio: ' + _self.influxPress[_self.influxPress.length - 1]);
 
-            if (_self.influxPress[_self.influxPress.length - 1] > 1013 && _self.influxTemp[_self.influxTemp - 1] <= 15) {
+            /* if (_self.influxPress[_self.influxPress.length - 1] >= 1013 && _self.influxTemp[_self.influxTemp.length - 1] <= 15) {
                 console.log('sol :)');
+                _self.sol = true;
+            } else if (_self.influxPress[_self.influxPress.length - 1] > 1013 && _self.influxTemp[_self.influxTemp.length - 1] > 15) {
+                console.log('nuvol i previsio de pluja');
+                _self.nuvol = true;
+            } */
+
+            for (let i = 0; i < _self.influxTemp.length; i++) {
+
+                if (i == 0) {
+                    continue;
+                }
+
+                if (_self.influxTemp[i] > _self.influxTemp[i - 1]) {
+                    _self.tempPuja++;
+                }
+
+                if (Math.trunc(_self.influxPress[i]) == Math.trunc(_self.influxPress[i - 1])) {
+                    _self.pressIgual++;
+                }
+
+                if (_self.tempPuja >= _self.influxTemp.length / 2 && _self.pressIgual >= _self.influxPress.length / 2) {
+                    console.log('nublat UwU');
+                    _self.nuvol = true;
+                } else if (_self.influxPress[_self.influxPress.length - 1] >= 1013 && _self.tempPuja >= _self.influxTemp.length / 2) {
+                    console.log('sol UwU');
+                    _self.nuvol = true;
+                }
+
             }
+
 
         }
     }
