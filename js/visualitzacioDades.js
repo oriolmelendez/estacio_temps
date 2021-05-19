@@ -34,6 +34,8 @@ var app = new Vue({
 
         const client = mqtt.connect(host, options);
 
+        client.publish('/RSPGetLocation', 'DadesLocalitzacio');
+
         client.on('connect', function() {
             console.log('Connected to broker');
             client.subscribe('/RSP0temperatura');

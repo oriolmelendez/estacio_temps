@@ -106,7 +106,8 @@ let app = new Vue({
             console.log('calcul meteo');
             _self.loading = false;
 
-            console.log('Last temp: ' + _self.influxTemp[_self.influxTemp - 1]);
+            console.log('Last temp: ' + _self.influxTemp);
+            //console.log('Last temp: ' + _self.influxTemp[_self.influxTemp - 1]);
 
             if (_self.influxPress[_self.influxPress.length - 1] > 1013 && _self.influxTemp[_self.influxTemp - 1] <= 15) {
                 console.log('sol :)');

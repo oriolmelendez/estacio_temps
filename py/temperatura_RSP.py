@@ -1,15 +1,15 @@
 import paho.mqtt.client as MQTT
 import rainbowhat as rh
 import time
-from geopy.geocoders import Nominatim
 from gpiozero import CPUTemperature
+#from geopy.geocoders import Nominatim
 
 # Capturar temperatura CPU
 cpu = CPUTemperature()
 
 #Get position
-loc = Nominatim(user_agent="GetLoc")
-location = loc.geocode("Barcelona, Spain").raw
+#loc = Nominatim(user_agent="GetLoc")
+#location = loc.geocode("Barcelona, Spain").raw
 
 # Capturar temperatura/pressio/alçada
 temperature = round((cpu.temperature - rh.weather.temperature()),2)
@@ -27,5 +27,5 @@ client.connect("broker.emqx.io",1883)
 client.publish("/RSP0temperatura",str(temperature),0,False)
 client.publish("/RSP0pressio",str(pressure),0,False)
 client.publish("/RSP0altitude",str(altitude),0,False)
-client.publish("/RSP0latitude",location.get('lat'),0,False)
-client.publish("/RSP0longitude",location.get('lon'),0,False)
+#client.publish("/RSP0latitude",location.get('lat'),0,False)
+#client.publish("/RSP0longitude",location.get('lon'),0,False)
