@@ -48,7 +48,7 @@ def subscribe(client: mqtt_client):
             rh.rainbow.set_all(255,0,0)
             rh.rainbow.show()
             time.sleep(3)
-            rh.rainbow.set_all(0,0,0)
+            rh.rainbow.set_all(0,0,255)
             rh.rainbow.show()
             
 

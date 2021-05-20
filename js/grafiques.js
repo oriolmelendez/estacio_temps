@@ -29,14 +29,12 @@ var app = new Vue({
             dataAlcada: '',
             alcadaValue: [],
             timeAValue: [],
-            tipusG: 'line',
-            canvasStatus: ''
+            mostraLinial: false,
+            mostraLinial: false
         }
     },
     mounted: function() {
         _self = this;
-
-        _self.canvasStatus = 'UwU'
 
         const client = mqtt.connect(host, options);
 
@@ -106,10 +104,20 @@ var app = new Vue({
         tipusGrafic: function() {
             let tgrafic = document.getElementById('tipusG').value;
 
-            this.grafic(tgrafic);
+            console.log(tgrafic);
+
+            if (tgrafic == 'line') {
+                let variable = document.getElementById('graficaBarres').hidden = true;
+                let variable2 = document.getElementById('graficaTemp').hidden = false;
+                this.grafic();
+            } else {
+                let variable = document.getElementById('graficaTemp').hidden = true;
+                let variable2 = document.getElementById('graficaBarres').hidden = false;
+                this.graficBarres();
+            }
 
         },
-        grafic: function(tipusGfc) {
+        grafic: function() {
 
             _self = this;
 
@@ -117,16 +125,8 @@ var app = new Vue({
 
             var ctx = document.getElementById('graficaTemp').getContext('2d');
 
-            if (tipusGfc !== _self.tipusG) {
-                console.log('diferents');
-                _self.tipusG = tipusGfc;
-
-                myChart.destroy();
-
-            }
-
             myChart = new Chart(ctx, {
-                type: tipusGfc,
+                type: 'line',
                 data: {
                     labels: _self.timeValue,
                     datasets: [{
@@ -174,6 +174,59 @@ var app = new Vue({
 
             myChart.hide(1);
             myChart.hide(2);
+        },
+        graficBarres: function() {
+
+            _self = this;
+
+            var graficBarr;
+
+            var ctx = document.getElementById('graficaBarres').getContext('2d');
+
+            graficBarr = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: _self.timeValue,
+                    datasets: [{
+                            label: 'Temperatura',
+                            data: _self.tempValue,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Pressio',
+                            data: _self.pressioValue,
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Alçada',
+                            data: _self.alcadaValue,
+                            backgroundColor: [
+                                'rgba(38, 166, 91, 0.2)',
+
+                            ],
+                            borderColor: [
+                                'rgba(38, 166, 91, 1)',
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                }
+            });
+
+            graficBarr.hide(1);
+            graficBarr.hide(2);
         }
 
     }

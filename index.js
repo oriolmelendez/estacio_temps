@@ -141,21 +141,30 @@ let app = new Vue({
 
                 if (_self.tempPuja >= _self.influxTemp.length / 2 && _self.pressIgual >= _self.influxPress.length / 2) {
                     console.log('nublat UwU');
-                    _self.loading = false;
                     _self.nuvol = true;
+                    _self.sol = false;
+                    _self.inestavilitat = false;
+                    _self.milloraTemps = false;
                 } else if (_self.influxPress[_self.influxPress.length - 1] >= 1013 && _self.tempPuja >= _self.influxTemp.length / 2) {
                     console.log('sol UwU');
-                    _self.loading = false;
                     _self.sol = true;
+                    _self.nuvol = false;
+                    _self.inestavilitat = false;
+                    _self.milloraTemps = false;
                 } else if (_self.pressBaixa >= _self.influxPress.length / 2) {
                     console.log('inestabilitat properament');
-                    _self.loading = false;
                     _self.inestavilitat = true;
+                    _self.milloraTemps = false;
+                    _self.sol = false;
+                    _self.nuvol = false;
                 } else if (_self.pressPuja >= _self.influxPress.length / 2) {
                     console.log('el temps millorarà');
-                    _self.loading = false;
                     _self.milloraTemps = true;
+                    _self.sol = false;
+                    _self.nuvol = false;
+                    _self.inestavilitat = false;
                 }
+                _self.loading = false;
 
             }
 
